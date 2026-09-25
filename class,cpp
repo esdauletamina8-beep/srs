@@ -1,0 +1,53 @@
+#include <iostream>
+using namespace std;
+
+class BankAccount {
+private:
+    double* transactions;
+    int count;
+
+public:
+    BankAccount() {
+        transactions = 0;
+        count = 0;
+    }
+
+    void addTransaction(double amount) {
+        double* newArray = new double[count + 1];
+
+        for (int i = 0; i < count; i++) {
+            newArray[i] = transactions[i];
+        }
+
+        newArray[count] = amount;
+
+        delete[] transactions;
+
+        transactions = newArray;
+        count++;
+    }
+
+    void showTransactions() {
+        cout << "Transaction  tarihi:" << endl;
+
+        for (int i = 0; i < count; i++) {
+            cout << transactions[i] << endl;
+        }
+    }
+
+    ~BankAccount() {
+        delete[] transactions;
+    }
+};
+
+int main() {
+    BankAccount account;
+
+    account.addTransaction(2000);
+    account.addTransaction(-500);
+    account.addTransaction(1500);
+
+    account.showTransactions();
+
+    return 0;
+}
